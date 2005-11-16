@@ -224,6 +224,12 @@ You can also look for information at:
 
 =over 4
 
+=item * SVN Repository
+
+The latest code is available from the perl.org Subversion repository,
+L<http://svn.perl.org/modules/Geo-Coder-Yahoo/>.  You can browse it at 
+L<http://svn.perl.org/viewcvs/modules/Geo-Coder-Yahoo/>.
+
 =item * AnnoCPAN: Annotated CPAN documentation
 
 L<http://annocpan.org/dist/Geo-Coder-Yahoo>
