@@ -7,7 +7,7 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 my $ua;
@@ -15,6 +15,7 @@ sub _ua {
     return $ua if $ua;
     $ua = LWP::UserAgent->new;
     $ua->agent(__PACKAGE__ . '/' . $VERSION);
+    $ua->env_proxy;
     $ua;
 }
 
@@ -97,6 +98,11 @@ Provides a thin Perl interface to the Yahoo! Geocoding API.
 
 Read more about the API at
 L<http://developer.yahoo.net/maps/rest/V1/geocode.html>.
+
+=head1 PROXY SETTINGS
+
+We use the standard proxy setting environment variables via LWP.  See
+the LWP documentation for more information.
 
 =head1 EVIL HACKS
 
