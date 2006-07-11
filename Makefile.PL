@@ -1,3 +1,4 @@
+
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -9,9 +10,10 @@ WriteMakefile(
     ABSTRACT_FROM       => 'lib/Geo/Coder/Yahoo.pm',
     PL_FILES            => {},
     PREREQ_PM => {
-        'Test::More' => 0,
-        'Yahoo::Search::XML' => 0,
-        'LWP::UserAgent' => 0,
+                  'Test::More' => 0,
+                  'Yahoo::Search' => '1.5.8',  # Yahoo::Search::XML doesn't have a version
+                  'Yahoo::Search::XML' => 0,
+                  'LWP::UserAgent' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Geo-Coder-Yahoo-*' },

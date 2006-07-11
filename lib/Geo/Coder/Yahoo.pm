@@ -54,27 +54,6 @@ sub geocode {
     $results;
 }
 
-no warnings;
-my %EntityDecode =
-(
-  amp  => '&',
-  lt   => '<',
-  gt   => '>',
-  apos => "'",
-  quot => '"', #"
- );
-
-sub Yahoo::Search::XML::_entity($) {
-    my $name = shift;
-    if (my $val = $EntityDecode{$name}) {
-        return $val;
-    } elsif ($name =~ m/^\#(\d+)$/) {
-        return chr($1);
-    } else {
-        die "unknown entity &$name;";
-    }
-}
-
 
 =head1 NAME
 
@@ -106,10 +85,9 @@ the LWP documentation for more information.
 
 =head1 EVIL HACKS
 
-Redefines the Yahoo::Search::XML::_entity function with a patched one.
-(I'll take the hacked one out when a new Yahoo::Search package is
-released).  The geocoding API is returning some HTML entities that
-apparently aren't used anywhere else in the Yahoo APIs.  :-)
+In version 0.01 this module redefined the Yahoo::Search::XML::_entity
+function with a fixed one.  In Yahoo::Search 1.5.8 that function was
+fixed, so we don't do that anymore.
 
 =head1 METHODS
 
