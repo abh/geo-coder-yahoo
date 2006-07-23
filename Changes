@@ -1,10 +1,11 @@
 Revision history for Geo-Coder-Yahoo
 
-0.02    2006/07/11
+0.02    2006/07/23
         - Use proxy settings from the environment variables, see the
           ENVIRONMENT section in the LWP documentation (Leonard A Jaffe)
         - Remove Yahoo::Search::XML hack, require Yahoo::Search 1.5.8.
+        - Documentation tweaks
 
 0.01    2005/11/16
-        First version, released on an unsuspecting world.
+        - First version, released on an unsuspecting world.
 

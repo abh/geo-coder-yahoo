@@ -106,9 +106,11 @@ Parameters are the URI arguments documented on the Yahoo API page
 (location, street, city, state, zip).  You usually just need one of
 them to get results.
 
-Returns a reference to an array of results.  More than one result may
-be returned if the given address is ambiguous.  Each result is a
-hashref with data like the following example:
+C<geocode> returns a reference to an array of results (an arrayref).
+More than one result may be returned if the given address is
+ambiguous.
+
+Each result in the arrayref is a hashref with data like the following example:
 
     {
      'country' => 'US',
