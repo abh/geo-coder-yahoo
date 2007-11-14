@@ -11,8 +11,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
                   'Test::More' => 0,
-                  'Yahoo::Search' => '1.5.8',  # Yahoo::Search::XML doesn't have a version
-                  'Yahoo::Search::XML' => 0,
+                  'Yahoo::Search::XML' => '20060729.004',
                   'LWP::UserAgent' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
