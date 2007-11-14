@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use Test::More tests => 10;
 use LWP::Simple;
+#use Data::Dump qw(dump);
 
 use_ok( 'Geo::Coder::Yahoo' );
 
@@ -19,8 +20,9 @@ SKIP: {
    #use Data::Dumper; 
    #warn Data::Dumper->Dump([\$p], [qw(p)]);
 
-   ok($p = $g->geocode(city => 'Pasadena'), 'geocode "Pasadena"');
-   ok( @$p > 5, 'there are many Pasadenas...');
+   ok($p = $g->geocode(city => 'Springfield'), 'geocode "Springfield"');
+   #dump($p);
+   ok( @$p > 5, 'there are many Springfields...');
 
 }
 
