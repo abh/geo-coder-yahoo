@@ -7,7 +7,7 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
-our $VERSION = '0.03';
+our $VERSION = '0.03_51';
 
 
 my $ua;
@@ -86,8 +86,8 @@ the LWP documentation for more information.
 =head1 EVIL HACKS
 
 In version 0.01 this module redefined the Yahoo::Search::XML::_entity
-function with a fixed one.  In Yahoo::Search 1.5.8 that function was
-fixed, so we don't do that anymore.
+function with a bug-fixed one.  In Yahoo::Search 1.5.8 that function
+was fixed, so we don't do that anymore.
 
 =head1 METHODS
 
@@ -210,11 +210,11 @@ You can also look for information at:
 
 =over 4
 
-=item * SVN Repository
+=item * Git Repository
 
 The latest code is available from the perl.org Subversion repository,
-L<http://svn.perl.org/modules/Geo-Coder-Yahoo/>.  You can browse it at 
-L<http://svn.perl.org/viewcvs/modules/Geo-Coder-Yahoo/>.
+L<git://git.develooper.com/Geo-Coder-Yahoo.git>.  You can browse it at 
+L<http://git.develooper.com/?p=Geo-Coder-Yahoo.git;a=summary>.
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
@@ -240,7 +240,7 @@ Thanks to Yahoo for providing this free API.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005 Ask Bjoern Hansen, all rights reserved.
+Copyright 2005-2008 Ask Bjoern Hansen, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
