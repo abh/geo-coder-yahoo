@@ -7,7 +7,7 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
-our $VERSION = '0.03_51';
+our $VERSION = '0.40';
 
 
 my $ua;
