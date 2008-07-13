@@ -9,6 +9,7 @@ WriteMakefile(
     VERSION_FROM        => 'lib/Geo/Coder/Yahoo.pm',
     ABSTRACT_FROM       => 'lib/Geo/Coder/Yahoo.pm',
     PL_FILES            => {},
+    LICENSE             => 'perl',
     PREREQ_PM => {
                   'Test::More' => 0,
                   'Yahoo::Search::XML' => '20060729.004',
