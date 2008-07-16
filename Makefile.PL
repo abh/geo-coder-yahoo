@@ -15,6 +15,7 @@ WriteMakefile(
                   'Yahoo::Search::XML' => '20060729.004',
                   'LWP::UserAgent' => 0,
                   'URI' => 0,
+		  'Encode' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Geo-Coder-Yahoo-*' },

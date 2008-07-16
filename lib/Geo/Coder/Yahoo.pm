@@ -2,6 +2,7 @@ package Geo::Coder::Yahoo;
 use warnings;
 use strict;
 use Carp qw(croak);
+use Encode qw(decode);
 use URI;
 use URI::QueryParam;
 use LWP::UserAgent;
@@ -47,7 +48,7 @@ sub geocode {
 
     for my $d (@$results) {
         for my $k (keys %$d) {
-            $d->{lc $k} = delete $d->{$k};
+            $d->{lc $k} = decode("utf-8", delete $d->{$k});
         }
     }
 
