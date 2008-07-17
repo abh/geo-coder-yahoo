@@ -1,5 +1,10 @@
 Revision history for Geo-Coder-Yahoo
 
+0.41    2008/07/17
+        - Decode utf8 data from Yahoo
+          (note that the Yahoo API doesn't seem to accept utf8 data in
+           parameters)
+
 0.40    2008/07/13
         - Add more tests
         - Update documentation (repository moved to git  etc)
