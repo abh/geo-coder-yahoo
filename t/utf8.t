@@ -1,7 +1,7 @@
 #!perl -T
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 13;
 use LWP::Simple;
 #use Data::Dump qw(dump);
 
@@ -34,6 +34,13 @@ SKIP: {
 
    ok($p = $g->geocode(location => 'Berlin, Dudenstr. 24' ), 'geocode a street in Berlin, Germany');
    is($p->[0]->{address}, "Dudenstra\xdfe 24");
+
+   {
+       local $TODO = "Yahoo API doesn't support utf8 input (a PASS here might be an accident)";
+       use utf8;
+       ok($p = $g->geocode(location => 'Słubice, Poland' ), 'using unicode codepoints > 255');
+       like($p->[0]->{city}, qr{Słubice});
+   }
 
 }
 
