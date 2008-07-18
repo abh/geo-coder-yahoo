@@ -1,5 +1,7 @@
 Revision history for Geo-Coder-Yahoo
 
+        - For more consistent utf8 handling, require URI 1.36
+
 0.41    2008/07/17
         - Decode utf8 data from Yahoo
           (note that the Yahoo API doesn't seem to accept utf8 data in

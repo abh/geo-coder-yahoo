@@ -3,12 +3,12 @@ use warnings;
 use strict;
 use Carp qw(croak);
 use Encode qw(decode);
-use URI;
+use URI 1.36;
 use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
-our $VERSION = '0.41';
+our $VERSION = '0.41_51';
 
 
 my $ua;
