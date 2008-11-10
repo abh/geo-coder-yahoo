@@ -1,11 +1,13 @@
 Revision history for Geo-Coder-Yahoo
 
+0.42
+        - Add another utf8 test (Slaven Rezic)
         - For more consistent utf8 handling, require URI 1.36
 
 0.41    2008/07/17
-        - Decode utf8 data from Yahoo
-          (note that the Yahoo API doesn't seem to accept utf8 data in
-           parameters)
+        - Decode utf8 data from Yahoo (Slaven Rezic)
+          (note that the Yahoo API doesn't seem to accept
+           utf8 data in parameters)
 
 0.40    2008/07/13
         - Add more tests
