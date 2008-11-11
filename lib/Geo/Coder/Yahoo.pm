@@ -60,10 +60,6 @@ sub geocode {
 
 Geo::Coder::Yahoo - Geocode addresses with the Yahoo! API 
 
-=head1 VERSION
-
-Version 0.01
-
 =head1 SYNOPSIS
 
 Provides a thin Perl interface to the Yahoo! Geocoding API.
@@ -191,7 +187,7 @@ Country in which the result is located.
 
 =head1 AUTHOR
 
-Ask Bjoern Hansen, C<< <ask at develooper.com> >>
+Ask Bjørn Hansen, C<< <ask at develooper.com> >>
 
 =head1 BUGS
 
@@ -213,13 +209,9 @@ You can also look for information at:
 
 =item * Git Repository
 
-The latest code is available from the perl.org Subversion repository,
+The latest code is available from the git repository at
 L<git://git.develooper.com/Geo-Coder-Yahoo.git>.  You can browse it at 
 L<http://git.develooper.com/?p=Geo-Coder-Yahoo.git;a=summary>.
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Geo-Coder-Yahoo>
 
 =item * CPAN Ratings
 
