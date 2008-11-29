@@ -16,6 +16,7 @@ WriteMakefile(
                   'LWP::UserAgent' => 0,
                   'URI' => 1.36,
 		  'Encode' => 0,
+                  'Unicode::Normalize' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'Geo-Coder-Yahoo-*' },

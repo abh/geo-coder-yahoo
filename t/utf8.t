@@ -4,6 +4,7 @@ use warnings;
 use Test::More tests => 13;
 use LWP::Simple;
 #use Data::Dump qw(dump);
+use utf8;
 
 use Encode qw(encode);
 

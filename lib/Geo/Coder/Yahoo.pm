@@ -7,6 +7,7 @@ use URI 1.36;
 use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
+use Unicode::Normalize qw(NFD);
 
 our $VERSION = '0.42';
 
@@ -36,7 +37,7 @@ sub geocode {
 
     my $u = URI->new('http://api.local.yahoo.com/MapsService/V1/geocode');
     $u->query_param(appid => $self->{appid});
-    $u->query_param($_ => $args{$_}) for keys %args;
+    $u->query_param($_ => _convert_to_plain_ascii($args{$_})) for keys %args;
 
     my $resp = _ua->get($u->as_string);
 
@@ -53,6 +54,46 @@ sub geocode {
     }
 
     $results;
+}
+
+sub _convert_to_plain_ascii {
+  my $str = shift;
+
+  $str = Encode::decode("windows-1252", $str)
+    unless utf8::is_utf8($str) or utf8::decode($str);
+
+  # Code to remove diacritic marks
+  # from http://ahinea.com/en/tech/accented-translate.html
+  for ( $str ) {  # the variable we work on
+
+    s/\xe4/ae/g;  ##  treat characters Ã¤ Ã± Ã¶ Ã¼ Ã¿
+    s/\xf1/ny/g;  ##  this was wrong in previous version of this doc    
+    s/\xf6/oe/g;
+    s/\xfc/ue/g;
+    s/\xff/yu/g;
+
+    $_ = NFD( $_ );   ##  decompose (Unicode Normalization Form D)
+    s/\pM//g;         ##  strip combining characters
+
+    # additional normalizations:
+
+    s/\x{00df}/ss/g;  ##  German beta âÃâ -> âssâ
+    s/\x{00c6}/AE/g;  ##  Ã
+    s/\x{00e6}/ae/g;  ##  Ã¦
+    s/\x{0132}/IJ/g;  ##  Ä²
+    s/\x{0133}/ij/g;  ##  Ä³
+    s/\x{0152}/Oe/g;  ##  Å
+    s/\x{0153}/oe/g;  ##  Å
+
+    tr/\x{00d0}\x{0110}\x{00f0}\x{0111}\x{0126}\x{0127}/DDddHh/; # ÃÄÃ°ÄÄ¦Ä§
+    tr/\x{0131}\x{0138}\x{013f}\x{0141}\x{0140}\x{0142}/ikLLll/; # Ä±Ä¸Ä¿ÅÅÅ
+    tr/\x{014a}\x{0149}\x{014b}\x{00d8}\x{00f8}\x{017f}/NnnOos/; # ÅÅÅÃÃ¸Å¿
+    tr/\x{00de}\x{0166}\x{00fe}\x{0167}/TTtt/;                   # ÃÅ¦Ã¾Å§
+
+    s/[^\n\040-\176]+//g; # last resort - Strip anything that is non-ascii
+  }
+
+  $str;
 }
 
 
@@ -233,7 +274,7 @@ Thanks to Yahoo for providing this free API.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005-2008 Ask Bjoern Hansen, all rights reserved.
+Copyright 2005-2008 Ask Bjørn Hansen, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
