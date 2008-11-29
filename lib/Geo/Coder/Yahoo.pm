@@ -8,6 +8,9 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
+#use Carp ();
+#use XML::Simple qw(XMLin);
+
 our $VERSION = '0.42';
 
 
@@ -41,7 +44,30 @@ sub geocode {
     my $resp = _ua->get($u->as_string);
 
     return unless $resp->is_success;
+
+    my $content = $resp->content; 
+
+    unless ($content =~ m/^</) {
+        Carp::cluck "Didn't get XML from Yahoo API call";
+        return;
+    }
+
+    #warn "CONTENT1: ", $content;
+    #utf8::decode($content);
+    #warn "CONTENT2: ", $content;
+
     my $parsed = Yahoo::Search::XML::Parse($resp->content);
+    #my $parsed = XMLin($resp->content);
+
+    #use Data::Dump qw(dump);
+    #dump($parsed);
+
+    for my $k (keys %$parsed) {
+        $parsed->{$k} = _utf8_safe($parsed->{$k});
+    }
+
+    #dump($parsed);
+
     return unless $parsed and $parsed->{Result};
     my $results = $parsed->{Result};
     $results = [ $parsed->{Result} ] if ref $parsed->{Result} eq 'HASH';
@@ -55,6 +81,39 @@ sub geocode {
     $results;
 }
 
+sub _utf8_safe {
+    my $text = shift;
+    $text = Encode::decode("windows-1252", $text)
+      unless utf8::is_utf8($text)
+          or utf8::decode($text);
+    return $text;
+}
+
+
+my %EntityDecode =
+(
+  amp  => '&',
+  lt   => '<',
+  gt   => '>',
+  apos => "'",
+  quot => '"', #"
+);
+
+sub Yahoo::Search::XML::_entity($)
+  {
+    my $name = shift;
+    if (my $val = $EntityDecode{$name}) {
+        return $val;
+    } elsif ($name =~ m/^#(\d+)$/) {
+        return chr($1);
+    } elsif ($name =~ m/^#[xX]([a-fA-F\d]+)$/) {
+        my $c = hex($1);
+        return chr($c) if $c < 256;
+    }
+
+    Yahoo::Search::XML::_error(__LINE__, "unknown entity &$name;");
+
+}
 
 =head1 NAME
 
