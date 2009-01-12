@@ -1,5 +1,9 @@
 Revision history for Geo-Coder-Yahoo
 
+0.43    2009/01/12
+        - Allow the module to be subclassed (oops). Thanks to Jay
+          Shirley for noticing.
+
 0.42    2008/11/10
         - Add another utf8 test (Slaven Rezic)
         - For more consistent utf8 handling, require URI 1.36

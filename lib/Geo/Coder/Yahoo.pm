@@ -8,8 +8,7 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML;
 
-our $VERSION = '0.42';
-
+our $VERSION = '0.43';
 
 my $ua;
 sub _ua {
@@ -23,8 +22,8 @@ sub _ua {
 sub new {
     my $class = shift;
     my %args = @_;
-    bless { appid => $args{appid} };
-} 
+    bless { appid => $args{appid} }, $class;
+}
 
 sub geocode {
     my $self = shift;
