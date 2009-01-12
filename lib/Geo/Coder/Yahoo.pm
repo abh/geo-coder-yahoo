@@ -212,6 +212,8 @@ The latest code is available from the git repository at
 L<git://git.develooper.com/Geo-Coder-Yahoo.git>.  You can browse it at 
 L<http://git.develooper.com/?p=Geo-Coder-Yahoo.git;a=summary>.
 
+It is also at L<http://github.com/abh/geo-coder-yahoo/tree/master>. 
+
 =item * CPAN Ratings
 
 L<http://cpanratings.perl.org/d/Geo-Coder-Yahoo>
