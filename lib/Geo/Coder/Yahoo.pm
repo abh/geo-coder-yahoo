@@ -232,7 +232,7 @@ Thanks to Yahoo for providing this free API.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005-2008 Ask Bjoern Hansen, all rights reserved.
+Copyright 2005-2009 Ask Bjoern Hansen, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
