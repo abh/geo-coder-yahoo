@@ -1,5 +1,7 @@
 Revision history for Geo-Coder-Yahoo
 
+        - Fix subclass test
+
 0.43    2009/01/12
         - Allow the module to be subclassed (oops). Thanks to Jay
           Shirley for noticing.
