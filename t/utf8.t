@@ -1,10 +1,15 @@
 #!perl -T
 use strict;
 use warnings;
-use Test::More tests => 13;
+
+use Test::More tests => 8;
+
+# guts of Test::More::UTF8
+binmode Test::More->builder->$_, ':utf8'
+    for qw(failure_output todo_output output);
+
 use LWP::Simple;
 #use Data::Dump qw(dump);
-
 use Encode qw(encode);
 
 use_ok( 'Geo::Coder::Yahoo' );
@@ -17,30 +22,13 @@ SKIP: {
 
    my $p;
 
-   {
-       use utf8;
-       ok($p = $g->geocode(location => 'Montreal, Canada'), 'geocode Montreal, Canada');
-       ok(@$p == 1, 'got just one result');
-       is($p->[0]->{city}, 'Montréal', 'got the right city');
-
-       ok($p = $g->geocode(location => 'Montréal, QC'), 'geocode Montréal, Canada');
-       ok(@$p == 1, 'got just one result');
-       TODO: { 
-           local $TODO = "Yahoo API doesn't support utf8 input";
-           is($p->[0]->{city}, 'Montréal', 'got the right city');
-       }
-
-   }
-
    ok($p = $g->geocode(location => 'Berlin, Dudenstr. 24' ), 'geocode a street in Berlin, Germany');
-   is($p->[0]->{address}, "Dudenstra\xdfe 24");
-
-   {
-       local $TODO = "Yahoo API doesn't support utf8 input (a PASS here might be an accident)";
-       use utf8;
-       ok($p = $g->geocode(location => 'Słubice, Poland' ), 'using unicode codepoints > 255');
-       like($p->[0]->{city}, qr{Słubice});
-   }
+   ok @$p;
+   my $expect = "Dudenstra\N{U+DF}e 24";
+   my $got = $p->[0]->{address};
+   ok Encode::is_utf8($expect, 1), 'expected is_utf8';
+   ok Encode::is_utf8($got, 1), 'got is_utf8';
+   is($got, $expect);
 
 }
 

@@ -1,5 +1,11 @@
 Revision history for Geo-Coder-Yahoo
 
+0.45    2010/06/14
+        - Require Yahoo::Search::XML 20100612 (Yahoo::Search 1.11.3)
+          which fixes utf8-encoding.
+        - Add on_error callback.
+        - geocode() now always returns scalar, i.e., undef on error.
+
 0.44    2009/01/31
         - Fix subclass test
         - Minor documentation updates

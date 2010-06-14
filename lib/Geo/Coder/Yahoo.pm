@@ -1,12 +1,14 @@
 package Geo::Coder::Yahoo;
+
 use warnings;
 use strict;
+
 use Carp qw(croak);
 use Encode qw(decode);
 use URI 1.36;
 use URI::QueryParam;
 use LWP::UserAgent;
-use Yahoo::Search::XML;
+use Yahoo::Search::XML 20100612;
 
 our $VERSION = '0.44';
 
@@ -22,7 +24,10 @@ sub _ua {
 sub new {
     my $class = shift;
     my %args = @_;
-    bless { appid => $args{appid} }, $class;
+    return bless {
+        appid => $args{appid},
+        on_error => $args{on_error} || sub { undef },
+    }, $class;
 }
 
 sub geocode {
@@ -39,15 +44,18 @@ sub geocode {
 
     my $resp = _ua->get($u->as_string);
 
-    return unless $resp->is_success;
+    return $self->{on_error}->($self, $resp)
+        if not $resp->is_success;
+
     my $parsed = Yahoo::Search::XML::Parse($resp->content);
-    return unless $parsed and $parsed->{Result};
+    return undef unless $parsed and $parsed->{Result};
+
     my $results = $parsed->{Result};
     $results = [ $parsed->{Result} ] if ref $parsed->{Result} eq 'HASH';
 
     for my $d (@$results) {
         for my $k (keys %$d) {
-            $d->{lc $k} = decode("utf-8", delete $d->{$k});
+            $d->{lc $k} = delete $d->{$k};
         }
     }
 
@@ -79,22 +87,24 @@ L<http://developer.yahoo.net/maps/rest/V1/geocode.html>.
 We use the standard proxy setting environment variables via LWP.  See
 the LWP documentation for more information.
 
-=head1 EVIL HACKS
-
-In version 0.01 this module redefined the Yahoo::Search::XML::_entity
-function with a bug-fixed one.  In Yahoo::Search 1.5.8 that function
-was fixed, so we don't do that anymore.
-
 =head1 METHODS
 
-=head2 new(appid => $appid)
+=head2 new
+
+    Geo::Coder::Yahoo->new(appid => $appid)
+    Geo::Coder::Yahoo->new(appid => $appid, on_error => sub { ... })
 
 Instantiates a new object.
 
-appid is your Yahoo Application ID.  You can register at
+appid specifies your Yahoo Application ID.  You can register at
 L<http://api.search.yahoo.com/webservices/register_application>.
 
 If you don't specify it here you must specify it when calling geocode.
+
+on_error specifies an error handler to be called if the HTTP response code does
+not indicate success. The subroutine is called with the geocode object as the
+first argument and the HTTP::Response object as the second. The return value
+from the subroutine is used as the return value from L</geocode>.
 
 =head2 geocode( location => $location )
 
