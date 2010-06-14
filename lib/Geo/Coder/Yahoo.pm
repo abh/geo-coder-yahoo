@@ -10,7 +10,7 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML 20100612;
 
-our $VERSION = '0.44';
+our $VERSION = '0.45';
 
 my $ua;
 sub _ua {
@@ -244,7 +244,7 @@ Thanks to Yahoo for providing this free API.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2005-2009 Ask Bjoern Hansen, all rights reserved.
+Copyright 2005-2010 Ask Bjoern Hansen, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
