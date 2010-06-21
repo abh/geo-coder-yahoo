@@ -12,13 +12,10 @@ use Yahoo::Search::XML 20100612;
 
 our $VERSION = '0.44';
 
-my $ua;
-sub _ua {
-    return $ua if $ua;
-    $ua = LWP::UserAgent->new;
-    $ua->agent(__PACKAGE__ . '/' . $VERSION);
-    $ua->env_proxy;
-    $ua;
+sub ua {
+    my $self = shift;
+    $self->{ua} = shift if @_;
+    return $self->{ua};
 }
 
 sub new {
@@ -27,6 +24,12 @@ sub new {
     return bless {
         appid => $args{appid},
         on_error => $args{on_error} || sub { undef },
+        ua => $args{ua} || do {
+            my $ua = LWP::UserAgent->new;
+            $ua->agent(__PACKAGE__ . '/' . $VERSION);
+            $ua->env_proxy;
+            $ua;
+        },
     }, $class;
 }
 
@@ -42,7 +45,7 @@ sub geocode {
     $u->query_param(appid => $self->{appid});
     $u->query_param($_ => $args{$_}) for keys %args;
 
-    my $resp = _ua->get($u->as_string);
+    my $resp = $self->ua->get($u->as_string);
 
     return $self->{on_error}->($self, $resp)
         if not $resp->is_success;
@@ -91,8 +94,13 @@ the LWP documentation for more information.
 
 =head2 new
 
-    Geo::Coder::Yahoo->new(appid => $appid)
-    Geo::Coder::Yahoo->new(appid => $appid, on_error => sub { ... })
+    $geocoder = Geo::Coder::Yahoo->new(appid => $appid)
+
+    $geocoder = Geo::Coder::Yahoo->new(
+        appid => $appid,
+        on_error => sub { ... },
+        ua => LWP::UserAgent->new,
+    )
 
 Instantiates a new object.
 
@@ -105,6 +113,9 @@ on_error specifies an error handler to be called if the HTTP response code does
 not indicate success. The subroutine is called with the geocode object as the
 first argument and the HTTP::Response object as the second. The return value
 from the subroutine is used as the return value from L</geocode>.
+
+ua specifies the user agent object to use. If not set then a new L<LWP::UserAgent>
+will be instanciated.
 
 =head2 geocode( location => $location )
 
@@ -157,7 +168,6 @@ to most general are:
 
 =item country
 
-
 =back
 
 =item warning
@@ -193,6 +203,15 @@ Zip code, if known.
 Country in which the result is located.
 
 =back
+
+=head2 ua
+
+    $ua = $geocoder->ua;
+
+    $geocoder->ua( $new_ua );
+
+Sets the user agent object to be used, if one is passed.
+Returns the user agent object.
 
 =head1 AUTHOR
 
