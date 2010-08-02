@@ -1,6 +1,8 @@
 Revision history for Geo-Coder-Yahoo
 
 {{$NEXT}}
+
+0.46    August 2, 2010
         - Add ua method as attribute accessor (Tim Bunce)
 
 0.45    2010/06/14
