@@ -1,5 +1,8 @@
 Revision history for Geo-Coder-Yahoo
 
+{{$NEXT}}
+        - Add ua method as attribute accessor (Tim Bunce)
+
 0.45    2010/06/14
         - Require Yahoo::Search::XML 20100612 (Yahoo::Search 1.11.3)
           which fixes utf8-encoding.

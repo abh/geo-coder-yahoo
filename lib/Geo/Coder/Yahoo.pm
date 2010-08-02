@@ -10,8 +10,6 @@ use URI::QueryParam;
 use LWP::UserAgent;
 use Yahoo::Search::XML 20100612;
 
-our $VERSION = '0.45';
-
 sub ua {
     my $self = shift;
     $self->{ua} = shift if @_;
@@ -26,7 +24,7 @@ sub new {
         on_error => $args{on_error} || sub { undef },
         ua => $args{ua} || do {
             my $ua = LWP::UserAgent->new;
-            $ua->agent(__PACKAGE__ . '/' . $VERSION);
+            $ua->agent(__PACKAGE__ . '/' . ($Geo::Coder::Yahoo::VERSION || 'git'));
             $ua->env_proxy;
             $ua;
         },
