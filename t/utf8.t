@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 7;
 
 # guts of Test::More::UTF8
 binmode Test::More->builder->$_, ':utf8'
@@ -26,7 +26,8 @@ SKIP: {
    ok @$p;
    my $expect = "Dudenstra\N{U+DF}e 24";
    my $got = $p->[0]->{address};
-   ok Encode::is_utf8($expect, 1), 'expected is_utf8';
+   # this test fails with perl < 5.12/5.10 ... 
+   # ok Encode::is_utf8($expect, 1), 'expected is_utf8';
    ok Encode::is_utf8($got, 1), 'got is_utf8';
    is($got, $expect);
 

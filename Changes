@@ -2,6 +2,7 @@ Revision history for Geo-Coder-Yahoo
 
 {{$NEXT}}
         - Require latest Yahoo::Search::XML to fix some parsing bugs (RT#37990)
+        - Disable utf8 test that didn't work on older perls
 
 0.46    August 2, 2010
         - Add ua method as attribute accessor (Tim Bunce)
