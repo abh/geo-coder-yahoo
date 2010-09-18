@@ -1,6 +1,10 @@
 Revision history for Geo-Coder-Yahoo
 
 {{$NEXT}}
+        - Add `ygeocode` utility
+        - Add note about Placefinder API to documentation 
+
+0.47    August 18, 2010
         - Require latest Yahoo::Search::XML to fix some parsing bugs (RT#37990)
         - Disable utf8 test that didn't work on older perls
 

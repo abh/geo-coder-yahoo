@@ -63,6 +63,11 @@ sub geocode {
     $results;
 }
 
+1;
+
+__END__
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -77,11 +82,16 @@ Provides a thin Perl interface to the Yahoo! Geocoding API.
     my $geocoder = Geo::Coder::Yahoo->new(appid => 'my_app' );
     my $location = $geocoder->geocode( location => 'Hollywood and Highland, Los Angeles, CA' );
 
-
 =head1 OFFICIAL API DOCUMENTATION
 
 Read more about the API at
 L<http://developer.yahoo.net/maps/rest/V1/geocode.html>.
+
+Yahoo! says that this API is deprecated and suggest using the
+placefinder API instead.  There's a module for that in
+L<Geo::Coder::Placefinder>.
+
+See also L<Geo::Coder::Many>.
 
 =head1 PROXY SETTINGS
 
@@ -268,4 +278,3 @@ under the same terms as Perl itself.
 
 =cut
 
-1; # End of Geo::Coder::Yahoo
