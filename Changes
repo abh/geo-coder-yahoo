@@ -1,6 +1,8 @@
 Revision history for Geo-Coder-Yahoo
 
 {{$NEXT}}
+
+0.48    September 18, 2010
         - Add `ygeocode` utility
         - Add note about Placefinder API to documentation 
 
